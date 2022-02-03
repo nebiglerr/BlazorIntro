@@ -1,0 +1,22 @@
+﻿@page "/validation"
+@using BlazorIntro.Models
+
+<EditForm Model="@productAddModel" OnValidSubmit="@HandleSave">
+    <h3>Validation</h3>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <h4> Ürün Adı</h4>
+    <InputText id="productName" @bind-Value="@productAddModel.ProductName" />
+    <h4> Ürün Açıklaması</h4>
+    <InputText id="description" @bind-Value="@productAddModel.Description" />
+    <button type="submit">Kaydet</button>
+</EditForm>
+
+@code {
+    ProductAddModel productAddModel = new ProductAddModel();
+
+    private void HandleSave()
+    {
+        Console.WriteLine("Ürün Eklendi" + productAddModel);
+    }
+}

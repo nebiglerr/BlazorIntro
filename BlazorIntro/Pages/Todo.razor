@@ -1,0 +1,47 @@
+@page "/todo"
+@using BlazorIntro.Models
+@using BlazorIntro.Services
+@inject HttpClient Http
+@inject IApiService Api
+
+@if (todoItems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in todoItems)
+            {
+                <tr>
+                    <td>@forecast.Id</td>
+                    <td>@forecast.UserId</td>
+                    <td>@forecast.Title</td>
+                    <td>@forecast.Completed</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code{
+
+    TodoItem[] todoItems;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>("https://jsonplaceholder.typicode.com/todos");
+    }
+}
